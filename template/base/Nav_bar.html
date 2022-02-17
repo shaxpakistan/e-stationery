@@ -1,0 +1,112 @@
+{% load static %}
+<style>
+    .badge {
+        padding-left: 9px;
+        padding-right: 9px;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        border-radius: 9px;
+    }
+    
+    .label-warning[href],
+    .badge-warning[href] {
+        background-color: #c67605;
+    }
+    
+    #lblCartCount {
+        font-size: 12px;
+        background: #ff0000;
+        color: #fff;
+        padding: 0 5px;
+        vertical-align: top;
+        margin-left: -5px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style="background-image: linear-gradient(-90deg, #a83279, #d38312); font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 16px; color: #fff!important;">
+    <div class="container mb-auto">
+        <a class="navbar-brand" href="{% url 'homepage' %}" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">E-Stationery</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler10" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"> 
+        <span class="navbar-toggler-icon"></span> 
+    </button>
+        <div class="collapse navbar-collapse" id="navbarToggler10">
+            <br>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'products_list' %}">Products</a>
+                </li>
+
+                {% if user.is_authenticated and user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">admin-pannel</a>
+                </li>
+                {% endif %} {% if user.is_authenticated and user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">stationer-dashboard</a>
+                </li>
+                {% endif %}
+
+            </ul>
+
+            <div class="form-inline my-2 my-lg-0">
+
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav mr-auto mt-2 ml-n3 mt-lg-0 ml-auto" style="list-style: none;">
+                    <div class="row mr-2">
+                        <li>
+                            <span class="py-3 mr-1s mt-2"><a href="{% url 'bookingrec' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-briefcase fa-lg mr-1 text-white"></i><span class="badge badge-danger badge-pill" id='lblCartCount'>{% if total %} {{total}} {% else %} 0 {% endif %}</span></a>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="p-3 mr-1s mt-2"><a href="{% url 'mycart' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-cart-plus fa-lg mr-1 text-white"></i><span class="badge badge-danger badge-pill" id='lblCartCount'>{{ total_items }}</span></a>
+                            </span>
+                        </li>
+                    </div>
+                </ul>
+                <div class="nav-item dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            {% if user.userprofile.profile_picture %}
+                            <img src="{{ user.userprofile.profile_picture.url }}" alt="" width="32" height="32" class="rounded-circle me-2 mr-1">                            
+                            {% else %}
+                            <img src="{% static 'userprofile/user.png' %}" alt="" width="32" height="32" class="rounded-circle me-2 mr-1 bg-warning">
+                            {% endif %}
+
+                            <strong style="text-decoration: none; font-size: medium; color: #f3a840 !important;">{{user.username}}</strong>
+                        </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small ml-lg-3 w-25" style="background-image: linear-gradient(-90deg, #a83279, #d38312);">
+                        <li class="mb-3"> <a href="{% url 'myrecords' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-clock fa-lg mr-1 ml-lg-3 text-white"></i>View Records</a></li>
+
+                        {%if user.userprofile.id%}
+                        <li class="mb-3"> <a href="{% url 'profile' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-user-alt fa-lg mr-1 ml-lg-3 text-white"></i>View profile</a></li>
+                        <li class="mb-3"> <a href="{% url 'edit_profile' user.userprofile.id %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important; "><i class="fa fa-edit fa-lg mr-1 ml-lg-3 text-white"></i>Edit profile</a></li>
+                        <li class="mb-3"> <a href="{% url 'edit_settings' user.id %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-cog fa-lg mr-1 ml-lg-3 text-white"></i>Edit settings</a></li>
+                        {%else%}
+                        <li class="mb-3"> <a href="{% url 'create_profile' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-user-circle fa-lg mr-1 ml-lg-3 text-white"></i>Create Profile</a></li>
+                        {%endif%}
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a href="{% url 'logout' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-sign-out-alt fa-lg mr-1 ml-lg-3 text-white"></i>Log Out</a></li>
+                    </ul>
+                </div>
+
+                {% else %}
+                <ul class="navbar-nav mr-auto mt-2 ml-n3 mt-lg-0" style="list-style: none;">
+                    <li>
+                        <span class="p-3 mr-1s"> <a href="{% url 'login' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-sign-in-alt fa-lg mr-1  text-white"></i>Log in</a></span>
+                    </li>
+                    <li>
+                        <span class="p-3 mr-1s"><a href="{% url 'register' %}" style="text-decoration: none; font-size: medium; color: #f3a840 !important;"><i class="fa fa-user-plus fa-lg mt-1 mr-1  text-white"></i>Register</a></span>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>Edit profile</title>
+{% endblock title %} {% load static %} {% block parkistan %}
+<div class="container mb-5">
+    <div class="py-5 text-center">
+        <h3>Create profile page...</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-8 order-md-1 col-lg-12">
+            <form class="needs-validation" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="email">Date Of Birth
+                        <span class="text-muted">(Optional)</span>
+                    </label>
+                    <input type="date" class="form-control" id="date_of_birth" placeholder="jan 27, 2000" name="date_of_birth" required>
+
+                </div>
+                <div class="mb-3">
+                    <label for="address2">Phone number</label>
+                    <input type="text" class="form-control" name="phone_number" id="phone" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mb-3 col-lg-6">
+                        <label for="country">Profile image</label>
+                        <input type="file" class="form-control" id="profile_picture" name="profile_picture">
+
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-block btn-lg float-none text-center ml-auto mr-auto w-75 btn-outline-secondary btn-info text-white shadow-sm border border-0 border-light" type="submit" data-pg-ia='{"l":[{"trg":"click","t":"this","a":"bounceIn"}]}'>Create profile</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock parkistan %}

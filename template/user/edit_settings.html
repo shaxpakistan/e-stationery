@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>Edit settings</title>
+{% endblock title %} {% load static %} {% block parkistan %}
+<div class="container mb-5">
+{% if user.is_authenticated %}
+    <div class="py-5 text-center">
+        {% if user.userprofile.profile_picture %}
+        <img class="d-block mx-auto mb-4 rounded-circle border-success" src="{{ user.userprofile.profile_picture.url }}" alt="" width="160" height="160"> {% else %}
+        <img class="d-block mx-auto mb-4 rounded-circle border-success" src="{% static 'userprofile/user.png' %}" alt="" width="160" height="160"> {% endif %}
+        <h2 class="text-capitalize">Edit {{ user.username}} Settings</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-8 order-md-1 col-lg-12">
+
+            <form class="needs-validation" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" id="first_name" placeholder="First Name" value="{{user.first_name}}" required name="first_name">
+
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="last_name" placeholder="Last name" value="{{user.last_name}}" required name="last_name">
+
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="username">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="border-radius: 5px;">
+                        </div>
+                        <input type="text" class="form-control" id="username" placeholder="Username" value="{{user.username}}" required name="username" style="border-radius: 5px;">
+
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email">Email 
+                        <span class="text-muted">(Optional)</span>
+                    </label>
+                    <input type="email" class="form-control" name="email" value="{{user.email}}" id="email" placeholder="you@example.com">
+
+                </div>
+                <div class="col-md-5 mb-3 col-lg-6">
+                    <label for="country">Change password</label>
+                    <p class="mt-2">To change the password click <a href="{% url 'password' user.pk %}">here</a></p>
+
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-block btn-lg float-none text-center ml-auto mr-auto w-75 btn-outline-secondary btn-info text-white shadow-sm border border-0 border-light" type="submit" data-pg-ia='{"l":[{"trg":"click","t":"this","a":"bounceIn"}]}'>Update settings</button>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <div class="alert-info p-3 mb-3 rounded">
+        <center>
+            <h3>
+                Please log in to access your profile !
+            </h3>
+        </center>
+    </div>
+{% endif %}
+  </div>  
+{% endblock parkistan %}

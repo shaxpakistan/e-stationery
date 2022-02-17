@@ -1,0 +1,198 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>Stationaries</title>
+{% endblock title %} {% block parkistan %}
+<div class="content-wrapper">
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow" style="background-image: linear-gradient(-90deg,  #d38312,#a83279);">
+        <img class="mr-3 shadow-sm p-0 m-0" src="{{stationery.profile.url}}" alt="" width="48" height="48">
+        <div class="lh-100">
+            <h5 class="mb-0 text-white lh-100"><a href="#" class="text-white" style="text-decoration: none;">{{pk}} Stationery</a></h5>
+            <small>{{user.first_name}} {{user.last_name}}</small>
+        </div>
+        <div class="nav ml-auto text-decoration-none justify-content-end">
+            <a type="button" class="nav-link text-white mr-n1" data-toggle="modal" data-target="#exampleModalCenter">
+            Post Products /
+          </a>
+            <a class="nav-link text-white ml-n4 mr-n2" href="{% url 'stock' pk %}">View Stock /</a>
+            <a class="nav-link text-white ml-n3 mr-n2" href="{% url 'stationery_details' pk %}">View site </a>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fa fa-shopping-bag fa-lg mr-1 pr-1 text-warning"></i>Order & Booking<span class="badge badge-danger badge-pill ml-1" id='lblCartCount'>{{ordersreceiver.count}}</span></h4>
+                    <div class="table-responsive">
+                                
+                                {% if  ordersreceiver  %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        S/N
+                                    </th>
+                                    <th> Client Name </th>
+                                    <th> Order No </th>
+                                    <th> Order Cost </th>
+                                    <th> Project </th>
+                                    <th> Payment Mode </th>
+                                    <th> Order Date </th>
+                                    <th> Order Status </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    
+                                {% for order in ordersreceiver %}
+                                <tr>
+                                    <th>
+                                        {{forloop.counter}}
+                                    </th>
+                                    <td>
+                                        <img src="{{ order.customer.userprofile.profile_picture.url }}" alt="image" width="32" height="32" class="rounded-circle me-2 mr-1" />
+                                        <span class="pl-2">{{order.customer.first_name}} {{order.customer.last_name}}</span>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'order-details' stationery.pk order.pk %}"> #ORDER_{{order.id}} </a></td>
+                                    <td>Tsh. {{order.totalpay}}/- </td>
+                                    <td> Dashboard </td>
+                                    <td> M-Pesa </td>
+                                    <td> {{order.order_date}} </td>
+                                    <td>
+                                        <span class="btn btn-outline-success btn-sm">{{order.status}}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                                {% else %}
+                                <div class="alert  py-3 mt-5  alert-info">
+                                    <p class="text-center pt-3 text-muted">No Orders or Booking record available yet..</p>
+                                </div>                                    
+                                {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="pb-2 mb-0"><i class="fa fa-shopping-basket fa-lg mr-1 pr-1 text-warning"></i>Post products</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                    </div>
+                    <div class="modal-body my-3 p-3 bg-white rounded box-shadow">
+                        <form method="POST" enctype="multipart/form-data" action="{% url 'post-product' stationery.pk %}">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputZip">Name</label>
+                                    <input type="text" name="item_name" class="form-control" id="inputEmail4" placeholder="Item Name" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputZip">Description</label>
+                                    <input type="text" class="form-control" name="item_desc" id="inputPassword4" placeholder="Item Description" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Profile Image</label>
+                                <div class="input-group col-xs-12">
+                                    <input type="file" class="form-control file-upload-info" name="item_img" placeholder="Upload Image">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputZip">Items Quantity</label>
+                                    <input type="number" class="form-control" id="inputCity" name="item_available" placeholder="Item Available" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Category</label>
+                                    <select id="inputState" class="form-control" name="item_category">
+                        {% for x in form.item_category %}
+                          {{x}}
+                          {% endfor %}
+                      </select>
+                                    <!-- {{form.item_category}} -->
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputZip">Price</label>
+                                    <input type="number" class="form-control" name="item_price" placeholder="@ Item Price" />
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Post Now</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row">
+
+    <div class="col-md-4">
+      <a href="{% url '#" style="text-decoration: none; font-family: verdana, sans serif; color: black;">
+        <div class="card mb-4  rounded shadow-sm shadow-sm border border-0 border-light" data-pg-ia='{"l":[{"trg":"mouseenter","t":"this","a":"pulse"}]}'>
+            <img class="card-img-top" src="{{user.stationery.profile.url}}" alt="picha hapa" style="width: auto; height: 240px;"/>
+            <div class="card-body badge-pill">
+                <h4 class="text-uppercase" style="color: dodgerblue; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{user.stationery}} STATIONERY</h4><p>| {{user.stationery.location}}</p>
+                <p class="card-text">{{ user.stationery.motto }} | {{ user.stationery.pub_date }}</p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+              </div>
+            </div>
+        </div>
+      </a>
+    </div>
+
+     <div class="card col-md-4 bg-white border-light border border-0 mt-5 mb-5 shadow-sm" data-pg-ia='{"l":[{"trg":"mouseenter","t":"this","a":"tada","dly":"200ms"}]}'>       
+      <div class="card-body" >
+
+        <center>
+            <img src="{{user.profile_picture.url}}" width="180" height="180" class="rounded-circle bg-white" style="margin-top: -4.5em; box-shadow: 0.1em 0.2em 1em;"><br><br>
+        <h5 class="card-title text-center text-uppercase mt-2 font-weight-bolder text-decoration-none bg-white p-2 shadow-sm w-40">{{user.username}}</h5>
+        </center>
+        <p class="card-text text-justify">This is a longer card with supporting text below as a natural 
+          lead-in to additional content. This content is a little bit longer. Lorem ipsum dolor sit amet 
+          consectetur adipisicing elit.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+      </div>
+  </div>
+    
+
+  <div class="col-md-4 border-light ">
+    <div class="card shadow-sm border border-0 border-light " data-pg-ia='{"l":[{"trg":"mouseenter","t":"this","a":"pulse"}]}'>
+      <div class="card-body">
+        <h4 class="card-title">Analysis and Growth</h4>
+        <canvas id="transaction-history" class="transaction-chart"></canvas>
+        <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+          <div class="text-md-center text-xl-left">
+            <h6 class="mb-1">Stock</h6>
+            <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+          </div>
+          <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+            <h6 class="font-weight-bold mb-0">Customer</h6>
+            <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+          </div>
+        </div>
+        <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+          <div class="text-md-center text-xl-left">
+            <h6 class="mb-1">Tranfer to Stripe</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </div> -->
+    </div>
+</div><br> <br> {% endblock parkistan %}

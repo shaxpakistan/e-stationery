@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% block title %}
+         <title>Register stationery</title>
+       {% endblock title %}
+{% block parkistan %}
+
+<div class="col-md-8 order-md-1 col-lg-12 shadow-sm bg-white m-lg-5 p-auto">
+    <div class="text-center mt-3 pt-2">
+        <h3 class="mb-3">Register Stationery</h3>
+    </div>
+    <div class="shadow-sm p-2">
+        <p class="text-justify">
+    Please enter the correct cridentials for your stationery and make sure the stationery is around Mzumbe University and wait for verification and approval so as to make it legal for offering online service.</p>
+    </div>
+    <form method="POST" enctype="multipart/form-data" class="needs-validation mb-3 pb-3">
+        {% csrf_token %}
+        <div class="mb-3 mt-2">
+            <label for="password">Stationery Name</label>
+            <input type="text" class="form-control" autofocus required name="name" placeholder="Name" >
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="password">Stationery Image</label>
+                <input type="file" class="form-control" autofocus required name="profile">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="password">Stationery Location</label>
+                <input type="text" class="form-control" autofocus required name="location" placeholder="Location">
+            </div>
+        </div>
+        <div class="mb-3 mt-2">
+            <label for="password">Stationery Motto</label>
+            <input type="text" class="form-control" autofocus required name="motto" placeholder="Motto">
+        </div>
+        <div class="form-group form-check text-center">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
+            <label class="form-check-label" for="exampleCheck1">I Accept 
+                <a href="#">terms and conditions</a>.
+            </label>
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <!-- <button class="btn btn-primary" type="submit" disabled="disabled">Submit</button> -->
+    </form>
+</div>
+
+{% endblock parkistan %}

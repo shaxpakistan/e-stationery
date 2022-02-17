@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% block title %}
+         <title>Change password</title>
+       {% endblock title %}
+{% load static %}
+{% block parkistan %}
+{% if user.is_authenticated %}
+    <br>
+    <br>
+    <div class="container">
+
+            <div class="toast-body flex-center mt-n5 mr-4 ml-n3" id="mytext">
+                {% if form.errors %}
+                <ul class="messages text-center" style="list-style: none;" >
+                {% for message in form.errors %}
+                <li>
+                <div class="alert alert-info">{{ message }}</div>
+                </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </div>
+
+        <div class="col-md-8 order-md-1 col-lg-12">
+            <div class="alert alert-primary  text-center" role="alert">
+                <h4 class="mb-3 mt-3">Password Change</h4>
+            </div>
+            <div class="alert alert-light shadow-sm mb-3 mt-1" role="alert">
+                <p>
+Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly.</p>
+            </div>
+            <form class="needs-validation mt-3" method="POST">
+                {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="password">Old password</label>
+                <input type="password" class="form-control" id="id_old_password" autofocus required name="old_password" autocomplete="current-password">
+            </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password">New password</label>
+                        <input type="password" class="form-control" id="id_new_password1" autofocus required name="new_password1" autocomplete="new-password1">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="password">New password confirmation</label>
+                        <input type="password" class="form-control" id="id_new_password2" autofocus required name="new_password2" autocomplete="new-password2">
+                    </div>
+                </div>
+                <div class="row">
+</div>
+                <hr class="mb-4">
+                <button class="btn btn-block btn-lg float-none text-center ml-auto mr-auto w-75 btn-outline-secondary btn-info text-white shadow-sm border border-0 border-light" type="submit" data-pg-ia='{"l":[{"trg":"click","t":"this","a":"bounceIn"}]}'>Change my password</button>
+            </form>
+        </div>
+    </div>
+    <br><br><br>
+    {% else %}
+    <div class="alert alert-danger mt-3  text-center" role="alert">
+        <h4 class="mb-3 mt-3">You must log in to access your profile and update it !!</h4>
+    </div>
+{% endif %}
+{% endblock parkistan %}

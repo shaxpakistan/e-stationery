@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+{% block title %}
+         <title>Registration form</title>
+       {% endblock title %}
+{% load static %}
+{% block parkistan %}
+<main role="main">
+    <div class="album py-5 bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6  pt-lg-5 mt-lg-5">
+                    <div class="card mb-5  mt-lg-4 text-left text-body font-weight-normal text-decoration-none bg-white border border-top-0 border-right-0 border-bottom-0 border-warning" style=" border-radius: 0px;">
+                        <div class="card-body mb-n2">
+                            <h5 class="card-title">E-Stationery System</h5>
+                        </div>
+                        <div class="card-body" style="font-variant: normal;">
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">First online/ e-stationey in mzumbe university.</p>
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">Booking stationery for printing service, scanning,photocopy and ordering different studying materials.</p>
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">Having Self taking service or delivery to the nearest taking place.</p>
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">access each stationery, its distinct services and products.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 bg-white shadow-none border-0 border-light">
+                    <div class="card mb-4 box-shadow shadow-lg bg-white mt-3 border-0 border-light">
+                        <form method="POST" action="" class="bg-white w-auto h-100 border-light border-0 mb-5 ml-3 mr-3 pr-null pb-null p-lg-3 p-sm-2 mt-4">
+                            {% csrf_token %}
+                            <div class="alert alert-light text-center text-body font-weight-bold text-decoration-none bg-white mt-2 mb-3 p-2" role="alert" style="font-family: verdana, sans serif; font-size: 22px;">Register&nbsp;</div>
+                           
+                            {% for field in form %}
+                            <div class="form-group">
+                              <input 
+                              {% if field.html_name == 'password2' or field.html_name == 'password1' %}  
+                              type="password" {% else %}  type="text" {% endif %}
+                              
+                              name="{{field.html_name}}"  class="form-control" 
+                              placeholder="{{field.label}}" aria-describedby="helpId">
+                              
+                              {% if field.errors %}
+                              {% for error in field.errors %}
+                              <small id="helpId" class="text-danger ml-2">{{error}}</small>
+                              {% endfor %}
+                              {% endif %}
+                            </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary float-right bg-info border-light">Submit</button><br>
+                            <p class="mt-4 mb-2 float-right text-justify mr-n5 pr-n5">
+                                Already have an account ?
+                                <a href="{% url 'login' %}" class="alert-link">Sign in</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock parkistan %}

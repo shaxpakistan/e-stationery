@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>update {{product.item_name}}</title>
+{% endblock title %} {% load static %} {% block parkistan %}
+
+<!-- my update form here -->
+        <div class="container">
+            <div class="modal-header">
+                <h4 class="pb-2 mb-0"><i class="fa fa-shopping-basket fa-lg mr-1 pr-1 text-warning"></i>Update product</h4>
+            </div>
+
+            <div class="modal-body my-3 p-3 bg-white rounded box-shadow">
+                <form method="POST" enctype="multipart/form-data" action="#">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <div class="modal-footer pb-2 ">
+                        <!-- <button type="cancel" class="btn btn-secondary btn-sm px-3 " data-dismiss="modal">Close</button> -->
+                        <button type="submit" class="btn btn-primary btn-sm px-3 ">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+{% endblock parkistan %}

@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>{{ jina}} Stock</title>
+{% endblock title %} {% block parkistan %}
+<br><br>
+<div class="container">
+
+    <div class="accordion" id="accordionExample">
+        <nav class="nav d-flex justify-content-center shadow-sm bg-info text-white p-3">
+            <h3>Available stock</h3> <span class="text-warning mt-auto p-2"> <small>Offered by <span>{{jina}} Stationery</span></small>
+            </span>
+        </nav>
+    </div>
+    <br> {% if not stock %}
+    <div class="container-fluid alert-info pt-2 rounded shadow-sm text-center ">
+        <strong>
+            <p>
+                This stationery is out of stock right now, please update now !!<br>
+            </p>
+        </strong>
+
+    </div>
+
+    {% else %}
+    <section class="py-5">
+        <div class="container px-lg-5">
+            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for product in stock %}
+
+                <div class="col mb-5">
+                    <div class="card h-100 border-0 box-shadow">
+                        <!-- Product image-->
+                        <img class="card-img-left flex-auto d-md-block d-block shadow-sm border-0 border-light w-100 " src="{{ product.item_img.url }} " alt="Card image cap " height='250vw'>
+                        <!-- Product details-->
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"><strong class="d-inline-block mb-2 text-success "> {{product.item_name}}</strong></h5>
+
+                                <!-- posted date -->
+                                <div class="mb-1 text-muted ">
+                                    <small>Posted : {{product.post_date | timesince}} ago</small>
+                                </div>
+                                <!-- Product price-->
+                                <p>Tsh <strong class="text-success "> {{product.item_price}} /= </strong></p>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="d-grid gap-3 d-flex justify-content-center mb-4 mt-n2">
+                            <div class="text-center m-1"><a class="btn  mt-auto btn-sm bg-success text-white border-0 px-3 border-0" href="{% url 'stock-details' product.pk %}">View</a></div>
+                            <div class="text-center m-1"><a href="{% url 'update-stock' product.pk %}" class="btn  mt-auto btn-sm bg-info text-white border-0 px-3 border-0">Edit</a></div>
+                            <div class="text-center m-1">
+                                <form action="{% url 'delete-stock' product.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn  mt-auto btn-sm bg-danger text-white border-0">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock parkistan %}

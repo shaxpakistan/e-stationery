@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %} {% load humanize %} {% block title %}
+<title>{{ stat }}order details</title>
+{% endblock title %} {% block parkistan %}
+<div class="container">
+    <div class="row">
+        <div class="jumbotron col-md-8 mx-auto p-0">
+            <div class="container">
+                <h4 class="display-5">Order Details</h4>
+                <hr class="my-3" />
+                <p><span class="font-weight-bold">Order ID :</span> #ORDER_{{ ord.id }}</p>
+                <p><span class="font-weight-bold">Delivery Service :</span> {{ ord.destination }}</p>
+                <p><span class="font-weight-bold">Order Date :</span> {{ ord.order_date }} ({{ ord.order_date|timesince }} ago)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-1" style="border-radius: 5px; background-image: linear-gradient(-90deg, #a83279, #d38312);">
+        <div class="container bg-light shadow-sm mt-3 " style="border-radius: 3px; border-top-right-radius: 3px;">
+            <nav class="navbar navbar-expand-lg navbar-light shadow-sm mt-2">
+                <div class="form-inline">
+                    <h5>Ordered Items</h5><span class="badge badge-success ml-2">{{ ord.cart.cartitem_set.all.count }}</span>
+                </div>
+            </nav>
+            <table class="table table-responsive-sm mt-2 shadow-sm mb-3 text-center">
+                <thead>
+                    <tr>
+                        <th><i class="fa fa-tags mr-1" style="color: #a83279;"></i> S/N</th>
+                        <th><i class="fa fa-cart-arrow-down mr-1" style="color: #a83279;"></i>Item</th>
+                        <th><i class="fa fa-coins mr-1" style="color: #a83279;"></i> Rate</th>
+                        <th><i class="fa fa-archive mr-1" style="color: #a83279;"></i> Quantity</th>
+                        <th><i class="fa fa-coins mr-1" style="color: #a83279;"></i> Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in ord.cart.cartitem_set.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a target="_blank" href="{% url 'item' item.product.pk %}">{{ item.product.item_name }} ({{ item.product.id }})</a></td>
+                        <td>{{ item.rate|intcomma }}</td>
+                        <td>{{ item.quantity|intcomma }}</td>
+                        <td>{{ item.subtotal|intcomma }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right">Total : </th>
+                        <th>Tsh. {{ ord.totalpay|intcomma }} /-</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br> {% endblock parkistan %}

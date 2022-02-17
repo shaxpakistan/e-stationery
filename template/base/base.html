@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+       {% block title %}
+         <title>E-Stationery system</title>
+       {% endblock title %}
+
+        <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+        <link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet">
+        <link href="{% static 'offcanvas.css' %}" rel="stylesheet">
+        <link href="{% static 'style.css' %}" rel="stylesheet">
+        <link href="{% static 'fontawesome/css/fontawesome.min.css' %}" rel="stylesheet">
+
+        {% block stat %}
+        {% endblock stat %}
+
+        
+        </head>
+<body class="bg-white">
+
+        {% include 'base/Nav_bar.html' %}
+
+        <div class="container mt-3">
+
+            {% block parkistan %}
+            <!-- bock for the main contents of the body     -->
+            {% endblock parkistan %}
+
+        </div>
+       
+        <div class="sticky-bottom">
+            {% include 'base/footer_include.html' %}
+        </div>
+
+ 
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'pgia/lib/pgia.js' %}"></script>
+    <script src="{% static 'fontawesome/js/fontawesome.min.js' %}"></script>                
+    <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
+
+    <!-- Script to enable auto typed text in product page -->
+    <script src="{% static 'assets/js/typed.min.js' %}"></script> 
+    <script src="{% static 'assets/js/main.js' %}"></script>
+       
+    <script>
+
+        $(document).ready(function()
+        {
+            $("body").click(function()
+            {
+                $("#mytext").hide();
+            });
+        });
+
+    </script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+          })
+    </script>
+
+
+</body>
+</html>

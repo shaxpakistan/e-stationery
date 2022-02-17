@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>Edit profile</title>
+{% endblock title %} {% load static %} {% block parkistan %}
+<div class="container mb-5">
+  {% if user.is_authenticated %}
+    {% if user.id == userprofile.user.id %}    
+    <div class="py-5 text-center">
+        {% if user.userprofile.profile_picture %}
+        <img class="d-block mx-auto mb-4 rounded-circle border-success" src="{{ user.userprofile.profile_picture.url }}" alt="" width="160" height="160"> {% else %}
+        <img class="d-block mx-auto mb-4 rounded-circle border-success" src="{% static 'userprofile/user.png' %}" alt="" width="160" height="160"> {% endif %}
+        <h2 class="text-capitalize">Edit {{ user.username}} Profile</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-8 order-md-1 col-lg-12">
+
+            <form class="needs-validation" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+            <div class="row">
+                   
+                <div class="mb-3 col-md-6">
+                    <label for="email">Date Of Birth
+                        <span class="text-muted">(Optional)</span>
+                    </label>
+                    <input type="date" class="form-control" id="date_of_birth" value="{{userprofile.date_of_birth}}" name="date_of_birth">
+
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="address2">Phone number</label>
+                    <input type="tel" class="form-control" name="phone_number" value="{{userprofile.phone_number}}" id="phone" required>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="country">Profile image</label>
+                        <input type="file" class="form-control" id="profile_picture" name="profile_picture" value="{{user.userprofile.profile_picture}}">
+
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-block btn-lg float-none text-center ml-auto mr-auto w-75 btn-outline-secondary btn-info text-white shadow-sm border border-0 border-light" type="submit" data-pg-ia='{"l":[{"trg":"click","t":"this","a":"bounceIn"}]}'>Update profile</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+  {% else %}
+    <div class="alert-info p-3 mb-3 rounded">
+        <center>
+            <h3>
+                Please log in to access your profile !
+            </h3>
+        </center>
+    </div>
+  {% endif %}
+</div>
+{% endblock parkistan %}

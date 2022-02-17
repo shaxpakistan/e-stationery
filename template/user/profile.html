@@ -1,0 +1,101 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>{{user.username}} profile</title>
+{% endblock title %} {% load static %} {% block parkistan %} {% if user.is_authenticated %}
+<div class="jumbotron">
+
+    <div class="row">
+        {% if user.userprofile.profile_picture %}
+        <div class="container col-md-3 text-center pb-sm-3 col-lg-6">
+            <img src="{{ user.userprofile.profile_picture.url }}" class="rounded-circle text-center mb-auto pt-1 pb-3 pr-2 pl-2 mt-lg-5 float-lg-right  mt-md-3" width="250" height="250" style="border-radius: 50%;">
+        </div>
+        {% else %}
+        <div class="container col-md-3 text-center pb-sm-3 col-lg-6">
+            <img src="{% static 'userprofile/user.png' %}" class="rounded-circle text-center mb-auto pt-1 pb-3 pr-2 pl-2 mt-lg-5 float-lg-right bg-info mt-md-3" width="250" height="250" style="border-radius: 50%;">
+        </div>
+        {% endif %}
+
+        <div class="container col-md-6 mt-sm-4 col-lg-6">
+            <h2 class="display-4 pb-1 text-danger"><strong>{{ user.username.capitalize }}</strong></h2>
+
+            <table width="100%">
+                <tr>
+                    <th>
+                        <h5>First Name :</h5>
+                    </th>
+                    {% if user.first_name %}
+                    <td>
+                        <h5>{{ user.first_name }}</h5>
+                    </td>
+                    {% endif %}
+                </tr>
+
+                <tr>
+                    <th>
+                        <h5>Last Name :</h5>
+                    </th>
+                    {% if user.last_name %}
+                    <td>
+                        <h5>{{ user.last_name }}</h5>
+                    </td>
+                    {% endif %}
+                </tr>
+
+                <tr>
+                    <th>
+                        <h5>Email :</h5>
+                    </th>
+                    {% if user.email %}
+                    <td>
+                        <h5>{{ user.email }}</h5>
+                    </td>
+                    {% endif %}
+                </tr>
+
+                <tr>
+                    <th>
+                        <h5>Phone :</h5>
+                    </th>
+                    {% if user.userprofile.phone_number %}
+                    <td>
+                        <h5>{{ user.userprofile.phone_number }}</h5>
+                    </td>
+                    {% endif %}
+                </tr>
+
+                <tr>
+                    <th>
+                        <h5>Date of birth :</h5>
+                    </th>
+                    {% if user.userprofile.date_of_birth %}
+                    <td>
+                        <h5>{{ user.userprofile.date_of_birth }}</h5>
+                    </td>
+                    {% endif %}
+                </tr>
+
+                <tr>
+                    <th>
+                        <h5>Date Joined :</h5>
+                    </th>
+                    {% if user.date_joined %}
+                    <td>
+                        <h5>{{ user.date_joined }}</h5>
+                    </td>
+                    {% endif %}
+
+                </tr>
+            </table><br>
+
+        </div>
+
+    </div>
+</div>
+{% else %}
+<div class="alert-info p-3 mb-3 rounded">
+    <center>
+        <h3>
+            Please log in to access your profile !
+        </h3>
+    </center>
+</div>
+{% endif %} {% endblock parkistan %}

@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+{% block title %}
+         <title>Checkout</title>
+       {% endblock title %}
+{% load static %}
+{% block parkistan %}
+<div class="container mb-5 pb-3">
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3"> <span class="text-muted ml-3">My product(s)</span> <span class="badge badge-pill badge-success">3</span> </h4>
+            <ul class="list-group mb-3">
+                {% for cp in cart.cartitem_set.all %}
+                <li class="list-group-item d-flex justify-content-between lh-condensed pb-2 mt-auto mb-1 border border-0 border-light shadow-sm">
+                    <div>
+                        <h6 class="my-0">{{ cp.product.item_name }}</h6>
+                        <small class="text-muted">Quantity : {{ cp.quantity }} @ Tsh. {{ cp.rate }}/=</small>
+                    </div>
+                    <div class="text-center d-flex-column">
+                        <b>Total</b><br>
+                    <span class="text-muted">Tsh. {{ cp.subtotal }}/=</span>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between border border-light border-0 shadow-sm mb-auto mt-5">
+                    <span>Total (Tsh.)</span>
+                    <strong>{{ cart.total }} /= </strong>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8 order-md-1 shadow-sm bg-white mb-3 pb-2">
+            <h4 class="mb-3 pt-3">Billing address</h4>
+            <form class="needs-validation pb-3" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="firstName">Full Name</label>
+                        <input type="text" class="form-control" id="firstName" name="full_name" value="{{user.first_name}}" required>
+                       
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-5 mb-3 col-lg-6">
+                        <label for="email">Email 
+                        </label>
+                        <input type="email" class="form-control" name="email" id="email" value="{{user.email}}" placeholder="you@example.com">
+                    </div>
+                    <div class="mb-3 col-md-5 mb-3 col-lg-6">
+                        <label for="phone">Phone 
+                        </label>
+                        <input type="number" class="form-control" value="{{user.userprofile.phone_number}}" id="phone" name="phone" placeholder="0744XXXXXX" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mb-3 col-lg-12">
+                        <label for="country">Delivery point</label>
+                        <select class="custom-select d-block w-100" name="destination" id="country">
+                            <option value="Self taking">Self taking</option>
+                            <option  value="Nakutunuku" >Nakutunuku</option>
+                            <option  value="LT 1" >LT 1</option>
+                            <option  value="Sellassie" >Sellassie</option>
+                            <option  value="Library" >Library</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <h4 class="mb-3">Payment method</h4>
+                <div class="d-block my-3">
+        </div>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="custom-control custom-radio">
+                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                        <label class="custom-control-label" for="credit">M-Pesa</label>
+                        <br>
+                    </div>
+                    <img src="{% static 'payment/voda.jpg' %}" class="ml-auto rounded-0 text-justify" height="50" width="200">
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="custom-control custom-radio">
+                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="debit">Tigo-Pesa</label>
+                    </div>
+                    <img src="{% static 'payment/tigo.jpeg' %}" class="ml-auto rounded-0" height="50" width="200">
+                </div>
+                <hr class="mb-4">
+            <center>
+                 <button type="submitt" class="btn btn-secPondary border mt-2 mr-1 border-light border-0 bg-success shadow btn-outline-light btn-light text-white" data-pg-ia='{"l":[{"trg":"click","t":"this","a":"flip"}]}' data-html="false">Place your order</button>
+                 <a href="{% url 'mycart' %}" type="button" class="btn btn-secPondary border ml-2 mt-2 border-light border-0 bg-secondary shadow btn-outline-light btn-light text-white" data-pg-ia='{"l":[{"trg":"click","t":"this","a":"flip"}]}' data-html="false">Update cart</a>
+            </center>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock parkistan %}

@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %} 
+{% load static %}
+{% block parkistan %} {% include 'base/welcome.html' %} {% block title %}
+<title>{{detail.name}} Stationery</title>
+{% endblock title %}
+<button class="btn btn-lg btn-block text-center float-none text-decoration-none d-flex flex-row align-content-end flex-wrap mt-auto mr-auto ml-auto p-3 mb-3" style="width: 320px; height: 60px; font-family: verdana, sans serif; font-variant: small-caps; text-align: center; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; align-content: center; box-shadow: 0.1em 0.1em 0.5em #9e9e9e; background-color: #e5e5e5; color: #000000; font-weight: bold; float: none; display: flex;">
+    {{ detail.name }} STATIONERY
+</button>
+
+<main role="main">
+    <div class="album py-5 bg-white mt-n2 ">
+        <br>
+        <div class="container">
+            <div class="row">
+  <div class="p-2 m-auto col-md-6">
+    <a href="{% url 'booking' detail.pk %}" style="text-decoration: none; font-family: verdana, sans serif; color: black; ">
+                                <div class="card mb-4 box-shadow bg-white shadow-lg border-0 text-center" data-pg-ia='{"l":[{"trg":"click","t":"this","a":"bounceIn"}]}'>
+                                    <div class="form-group pt-3 pb-n2" data-pg-ia='{"l":[{"trg":"mouseenter","t":"this","a":"bounceIn"}]}'>
+                                        <h5>
+                Click To </h5>
+                                        <h4 class="text-center">BOOK US NOW !</h4>
+                                    </div>                                     
+                                    <div class="text-dark bg-white">
+                                        <img src="{% static 'report.PNG' %}" height="210" class="p-0 m-0 rounded-0 w-100 bg-white">
+                                    </div>
+                                </div>
+                            </a>
+                            </div>
+                <div class="p-2 m-auto col-md-6 ">
+                    <a href="{% url 'products' detail.pk %} " style="text-decoration: none; font-family: verdana, sans serif; color: black; ">
+                        <div class="card mb-4 box-shadow bg-white border-0 " data-pg-ia='{"l ":[{"trg ":"click ","t ":"this ","a ":"shake "}]}'>
+                            <div class="card rounded shadow-lg ">
+                                <img class="img-responsive w-100 rounded shadow-lg " src="{{ detail.profile.url }} " height=309/>
+                                <div class="card-img-overlay " style="align-content: center; flex-wrap: nowrap; justify-content: space-around; align-items: center; flex-direction: row; overflow: auto; ">
+                                    <h3 style="font-weight: bold; ">Get Product <span class="typed ml-4 " data-typed-items="Article, Book, Constitution, Journal, Paper, Pen, Pencil, Statute " style="color: #fff; padding-bottom: 4px;letter-spacing: 1px;
+                            border-bottom: 3px solid #d38312; color: #a83279; "></span></h3>
+                                    <p class="card-text " style="color: #d83434; font-size: 19px; ">{{ detail.motto }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+
+    var file = document.getElementById('Doc');
+    file.onchange = function(e) {
+        var ext = this.value.match(/\.([^\.]+)$/)[1];
+        switch (ext) {
+            case 'docx':
+            case 'pdf':
+                break;
+            default:
+                alert('Not allowed');
+                this.value = '';
+        }
+    }
+
+    c = Number({
+        {
+            price
+        }
+    })
+
+    function price_change() {
+        a = Number(document.getElementById('inlineFormCustomSelect1').value)
+        document.getElementById('kaka').innerHTML = c + a
+    }
+    
+</script>
+{% endblock parkistan %}

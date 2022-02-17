@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %} {% load humanize %} {% block title %}
+<title>{{ stat }}Booking records</title>
+{% endblock title %} {% block parkistan %}
+<br><br>
+        {% if booking %}
+            
+<div class="container mt-3 p-2" style="border-radius: 5px; background-image: linear-gradient(-90deg, #a83279, #d38312);">
+    <div class="container bg-light shadow-sm mt-3 " style="border-radius: 3px; border-top-right-radius: 3px;">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm mt-2">
+            <div class="form-inline">
+                <h5>My booking</h5><span class="badge badge-success ml-2">{{ booking.count }}</span>
+            </div>
+        </nav>
+        
+        <table class="table table-responsive-sm mt-2 shadow-sm mb-3 text-center">
+            <thead>
+                <tr>
+                    <th><i class="fa fa-tags mr-1" style="color: #a83279;"></i> S/N</th>
+                    <th><i class="fa fa-cart-arrow-down mr-1" style="color: #a83279;"></i> Booking ID</th>
+                    <th><i class="fa fa-cart-arrow-down mr-1" style="color: #a83279;"></i> Posted To</th>
+                    <th><i class="fa fa-coins mr-1" style="color: #a83279;"></i> Amount</th>
+                    <th><i class="fa fa-calendar-alt mr-1" style="color: #a83279;"></i> Ordered on</th>
+                    <th><i class="fa fa-check-square mr-1" style="color: #a83279;"></i> Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in booking %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td> #BOOKING_{{ order.id }}</td>
+                    <td> {{ order.stationery }}</td>
+                    <td>{{ order.doc_cost|intcomma }}</td>
+                    <td class="text-justfy">{{ order.booking_date|timesince }} ago</td>
+                    <td>
+                        <span class="btn btn-outline-success btn-sm">{{order.booking_status}}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+        {% else %}
+        <div class="alert  py-3 mt-5  alert-info">
+            <p class="text-center pt-3 text-muted">No booking record available yet..</p>
+        </div>
+        {% endif %}
+<br><br> {% endblock parkistan %}

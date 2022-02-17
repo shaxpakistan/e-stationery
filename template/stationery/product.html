@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>{{ stat }} Stationery</title>
+{% endblock title %} {% block parkistan %}
+<br><br>
+<div class="container">
+    <div class="jumbotron text-white rounded bg-dark d-flex p-md-0">
+        <div class="col-md-6 px-0 col-lg-6 p-3">
+            <h1 class="display-5">Welcome to <strong class="text-success">{{ stat }} Stationery</strong></h1>
+            <p class="lead my-3">Here you can get a bunch of products at the affordable price and seasonal offers like ....</p>
+            <h3><span class="typed ml-4" data-typed-items="Articles, Books, Constitutions, Journals, Papers, Statutes" style="color: #fff; padding-bottom: 4px;letter-spacing: 1px; border-bottom: 3px solid #0a9505;"></span></h3>
+        </div>
+        <div class="col-md-6 px-0 col-lg-6 pr-0 pl-1 flex-auto d-none d-md-block" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+            <img src="{{ statpic.profile.url }}" height=302 class="img card-img-right img-responsive" width="100%" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+        <nav class="nav d-flex justify-content-between shadow-sm">
+            <a class="p-2 text-muted" href="{% url 'products_list' %}">All</a> {% for cat in allcategory %}
+            <a class="p-2 text-muted" href="{% url 'filtercategory' cat.pk %}">{{cat.pk}}</a> {% endfor %}
+        </nav>
+    </div>
+
+    <br> {% if not prod %}
+    <div class="container-fluid alert-info pt-2 rounded shadow-sm text-center ">
+        <strong>
+            <p>
+                This stationery is out of stock right now, please visit latter for update <br>
+                Get back <a href="{% url 'homepage' %} ">Home</a> 
+            </p>
+        </strong>
+
+    </div>
+
+    {% else %}
+    <section class="py-5">
+        <div class="container px-lg-5">
+            <center>
+                <div class="toast-body" id="mytext">
+                    {% if messages %}
+                    <ul class="messages text-center" style="list-style: none;">
+                        {% for message in messages %}
+                        <li>
+                            <div class="alert alert-success"><small>{{ message }}</small></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </center>
+            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for product in prod %}
+
+                <div class="col mb-5">
+                    <div class="card h-100 border-0 box-shadow">
+                        <!-- Product image-->
+                        <img class="card-img-left flex-auto d-md-block d-block shadow-sm border-0 border-light w-100 " src="{{ product.item_img.url }} " alt="Card image cap " height='250vw'>
+                        <!-- Product details-->
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"><strong class="d-inline-block mb-2 text-success "> {{product.item_name}}</strong></h5>
+
+                                <!-- posted date -->
+                                <div class="mb-1 text-muted ">
+                                    <small>Posted : {{product.post_date | timesince}} ago</small>
+                                </div>
+                                <!-- Product price-->
+                                <p>Tsh <strong class="text-success "> {{product.item_price}} /= </strong></p>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="d-grid gap-3 d-flex justify-content-center mb-4 mt-n2">
+                            <div class="text-center m-1"><a class="btn btn-success me-sm-3 btn-sm" href="{% url 'addtocart' product.pk %}">Add to cart</a></div>
+                            <div class="text-center m-1"><a class="btn btn-outline-secondary  mt-auto btn-sm" href="{%url 'item' product.pk %}">View product</a></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock parkistan %}

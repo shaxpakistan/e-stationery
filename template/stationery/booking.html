@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>About Us</title>
+{% endblock title %} {% block parkistan %}
+
+   <div class="row justify-content-center my-4">
+                <div class="col-md-8">
+                    <div class="card border-white shadow-sm border border-0">
+                        <div class="card-header border-white">
+                           <h5 class="p-1 text-center"><i class="fa fa-upload"></i> UPLOADING TASK</h5>
+</div>
+                        <div class="card-body">
+                             <form method="POST" enctype="multipart/form-data" class="p-2" action="">
+                            {% csrf_token %}
+                            <div class="form-group p-2">
+                            {{form.as_p}}
+
+                            </div>
+
+                            <div class="form-row justify-content-end">
+                                <div class="col-auto mt-n4 pt-0">
+                                    <div class="mr-auto"><a href="#" class="btn btn-sm btn-outline-success mt-1">Process Document</a></div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="row justify-content-center my-1">
+                                <!-- <div class="col-md-6 p-2 text-center">
+                                    <h5>Cost: Tsh.
+                                        <span class="badge badge-success" id="kaka ">200 /=</span>
+                                    </h5>
+                                </div> -->
+                                <div class="col-md-6 p-2 text-center">
+                                    <button type="submit " class="btn btn-outline-primary btn-sm">Payment</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="card-footer text-muted text-center border-white">
+                     <a href="{% url 'homepage' %}" class="btn btn-sm btn-outline-secondary"><i class="fa fa-home fa-lg mr-1"></i> Get Hone</a>
+			</div>
+                    </div>
+                </div>
+            </div>
+
+
+{% endblock parkistan %}

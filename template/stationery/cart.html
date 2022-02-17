@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>my cart</title>
+{% endblock title %} {% load static %} {% block parkistan %}
+
+<div class="container mt-3 pt-2 pb-4 bg-white">
+    {% if cart.cartitem_set.all %}
+
+    <div class="table-responsive text-capitalize mb-4 border border-0 shadow-sm">
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th><a class="btn btn-outline-dark me-sm-3 btn-sm" href="{% url 'products_list' %}">continue shopping</a> </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Items: {{ total_items }}</th>
+                    <th class="text-success">Total : Tsh. {{ cart.total }} /= </th>
+                    <th>
+                        <a class="btn btn-outline-success me-sm-3 btn-sm" href="{% url 'checkout' %}" style="float: right;">Checkout</a>
+                    </th>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-5 mt-5 alert-success border border-0 shadow-sm">
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Rate</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cp in cart.cartitem_set.all %}
+                <tr>
+                    <td scope="row">
+                        <img src="{{ cp.product.item_img.url }}" alt="" height="30" width="50">
+                    </td>
+                    <td>{{ cp.product.item_name }}</td>
+                    <td>Tsh. {{ cp.rate }}/= </td>
+                    <td>
+                        <span class="ml-2  ">
+
+                                <a href="{% url 'managecart' cp.id %}?action=dec" class="mr-2"><i class="fa fa-caret-left"></i></a>
+                                 {{ cp.quantity }}
+
+                                <a href="{% url 'managecart' cp.id %}?action=inc" class="ml-2"><i class="fa fa-caret-right"></i></a>
+                                </span>
+                    </td>
+                    <td>Tsh. {{ cp.subtotal }}/= </td>
+                    <td>
+                        <span class="ml-3">
+                                <a href="{% url 'managecart' cp.id %}?action=rmv"><i class="fa fa-trash-alt text-danger"></i></a>
+                                </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <span style="float: right;" class="mt-n4"><a href="{% url 'emptycart' %}" class="btn btn-sm btn-block btn-info mt-4 text-white" type="btn" data-pg-ia='{"l":[{"trg":"mouseenter","t":"this","a":"bounceIn"}]}'>Empty cart</a></span>
+    </div>
+
+    {% else %}
+    <div class="alert  py-3 mt-5  alert-info">
+        <p class="text-center pt-3 text-muted">No cart available yet..</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock parkistan %}

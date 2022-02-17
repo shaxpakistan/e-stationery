@@ -1,0 +1,44 @@
+<div class="my-3 p-3 bg-white rounded box-shadow">
+    <h4 class="border-bottom border-gray pb-2 mb-0"><i class="fa fa-shopping-basket fa-lg mr-1 pr-1 text-warning"></i>Post products</h4>
+    <div class="media text-muted pt-3">
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputZip">Name</label>
+                <input type="text" name="item_name" class="form-control" id="inputEmail4" placeholder="Item Name"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputZip">Description</label>
+                <input type="text" class="form-control" name="item_desc" id="inputPassword4" placeholder="Item Description"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Profile Image</label>
+            <div class="input-group col-xs-12">
+                <input type="file" class="form-control file-upload-info" name="item_img" placeholder="Upload Image">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputZip">Items Quantity</label>
+                <input type="number" class="form-control" id="inputCity" name="item_available" placeholder="Item Available"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">Category</label>
+                <select id="inputState" class="form-control" name="item_category">
+                    <option selected="">Choose...</option>
+                    <option>Pens</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputZip">Price</label>
+                <input type="number" class="form-control" name="item_price" placeholder="@ Item Price"/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+
+</div>

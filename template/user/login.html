@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% block title %}
+         <title>Login form</title>
+       {% endblock title %}
+{% load static %}
+{% block parkistan %}
+<main role="main">
+    <div class="album py-5 bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 pt-lg-4">
+                    <div class="card mb-5 pb-3 pt-lg-3 text-left text-body font-weight-normal text-decoration-none bg-white border border-top-0 border-right-0 border-bottom-0 mt-lg-3 border-warning" style="border-radius: 0px;">
+                        <div class="card-body mb-n4">
+                            <h5 class="card-title">E-Stationery System</h5>
+                        </div>
+                        <div class="card-body" style="font-variant: normal;">
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">First online/ e-stationey in mzumbe university.</p>
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">Booking stationery for printing service, scanning,photocopy and ordering different studying materials.</p>
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">Having Self taking service or delivery to the nearest taking place.</p>
+                            <p class="card-text" style="font-variant: normal; text-transform: lowercase; font-family: verdana, sans serif; text-align: justify;"><img width="12" height="12" src="{% static 'bullet/clip_image001.gif' %}" alt="*" style="text-align: left;" class="mr-3">access each stationery, its distinct services and products.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 bg-white shadow-none border-0 border-light">
+                    <div class="card mb-4 box-shadow shadow-lg bg-white mt-3 border-0 border-light">
+                        <form method="POST" action="" class="bg-white w-auto h-100 border-light border-0 p-lg-5 p-sm-2 mt-5 mb-5 ml-3 mr-3">
+                            {% csrf_token %}
+                             <center>
+                                <div class="toast-body" id="mytext">
+                                    {% if messages %}
+                                    <ul class="messages text-center" style="list-style: none;" >
+                                    {% for message in messages %}
+                                    <li>
+                                    <div class="alert alert-info">{{ message }}</div>
+                                    </li>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                </div>
+                             </center>                        
+                            <div class="alert alert-light text-center text-body font-weight-bold text-decoration-none bg-white mt-n2 mb-2" role="alert" style="font-size: 22px;">E-Stationery Login</div>
+                            <div class="form-group">
+                                <input type="text" class="form-control mt-3 ml-auto mr-auto p-auto mb-3 w-100" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control mt-3 mb-5" name="password" id="exampleInputPassword1" placeholder="Password"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right bg-info active border-light border border-0">Sign in</button><br>
+                            <p class="mt-4 mb-n5 float-right text-justify mr-n5 pr-n5">
+                                Don`t have an account ?
+                                <a href="{% url 'register' %}{% if request.GET.next %}?next={{request.GET.next}}{% endif %}" class="alert-link">Sign up</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main> 
+{% endblock parkistan %}

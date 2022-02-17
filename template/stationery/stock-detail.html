@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %} {% load static %} {% block title %}
+<title>{{jina}} Stock</title>
+{% endblock title %} {% block parkistan %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{product.item_img.url}}" class="w-100" />
+        </div>
+        <div class="container col-md-6">
+            <h5 class="display-4" style="font-size: clamp(2em, 2vw, 3em); font-weight: normal;">{{item.item_name}}</h5>
+            <p class="text-justify">{{ product.item_desc }}</p>
+            <p class="text-justify">Category: {{ product.item_category }}</p>
+            <p class="text-justify">Available: {{ product.item_available }}</p>
+            <p class="text-justify">Posted on: {{ product.post_date }}</p>
+
+
+            <div class="container col-12 text-center mt-5 mb-2">
+                <div class="alert alert-success text-decoration-none shadow-sm border border-0 border-light text-center w-75 ml-auto mr-auto" role="alert">
+                    <p class="w-auto mt-0 mb-1" style="font-size: clamp(1.2em, 2vw, 1.5em);">
+                        Price: Tsh {{product.item_price}}/-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock parkistan %}

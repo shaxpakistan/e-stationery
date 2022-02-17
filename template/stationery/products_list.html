@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %} {% block title %}
+<title>Products</title>
+{% endblock title %} {% block parkistan %}
+
+<div class="container">
+    {% block category %}
+
+    <div class="accordion" id="accordionExample">
+          
+        <nav class="nav d-flex justify-content-between shadow-sm">
+            <div class="pb-2" style="overflow: auto ;">
+                <a class="p-2 text-muted" href="{% url 'products_list' %}">All</a>
+                 {% for cat in category %}
+                <a class="p-2 text-muted" href="{% url 'filtercategory' cat.pk %}">{{cat.pk}}</a> 
+                 {% endfor %}       
+            </div>
+        </nav>
+    </div>
+    <center>
+            <div class="toast-body" id="mytext">
+                {% if messages %}
+                <ul class="messages text-center" style="list-style: none;" >
+                {% for message in messages %}
+                <li>
+                <div class="alert alert-success"><small>{{ message }}</small></div>
+                </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </div>
+         </center> 
+    <br> {% endblock %} {% for cat in allcategory %}
+    <h4>{{cat.category_name}}</h4>
+    {% if cat.product_set.all %}
+
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% for product in cat.product_set.all %}
+
+                    <div class="col mb-5">
+                        <div class="card h-100 border-0 box-shadow">
+                            <!-- Product image-->
+                            <img class="card-img-left flex-auto d-md-block d-block shadow-sm border-0 border-light w-100 " src="{{ product.item_img.url }} " alt="Card image cap " height='250vw'>
+                            <!-- Product details-->
+                            <div class="card-body p-3">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder"><strong class="d-inline-block mb-2 text-success "> {{product.item_name}}</strong></h5>
+
+                                    <!-- posted date -->
+                                    <div class="mb-1 text-muted ">
+                                        <small>Posted : {{product.post_date | timesince}} ago</small> 
+                                    </div>
+                                    <div class="mb-1 text-muted"><small>By : <a href="{%url 'products' product.stat_name %}">{{product.stat_name}} stationery</a></small> </div>
+                                    <!-- Product price-->
+                                    <p>Tsh <strong class="text-success "> {{product.item_price}} /= </strong></p>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="d-grid gap-3 d-flex justify-content-center mb-4 mt-n2">
+                                <form action="{% url 'addtocart' product.id %}" method="POST">
+                        
+                                {% csrf_token %}
+                                <div class="text-center m-1"><button type="submit" class="btn btn-success me-sm-3 btn-sm">Add to cart</button></div>
+                            </form>
+                            <div class="text-center m-1"><a class="btn btn-outline-dark mt-auto btn-sm" href="{%url 'item' product.pk %}">View product</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+    {% else %}
+    <div class="container-fluid alert-info pt-3 pb-1 rounded shadow-sm">
+        <center>
+            <p>
+                The available <a href="{% url 'homepage' %}">Stationeries</a> is out of stock right now.. <br>
+            </p>
+        </center>
+    </div>
+    <br><br> {% endif %} {% endfor %}
+</div>
+
+
+{% endblock parkistan %}
