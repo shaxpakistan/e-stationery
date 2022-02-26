@@ -28,7 +28,7 @@ SECRET_KEY = '+2h^6@kv4va#-o@x)sjj_u_1is6eu*k(dp=vtk^l_6xu@-2zo7'
 DEBUG = True
 
 # ALLOWED_HOSTS = ['e-stationery.herokuapp.com']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://onlinestationery.herokuapp.com/']
 
 # Application definition
 
